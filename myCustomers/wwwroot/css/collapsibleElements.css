@@ -1,0 +1,12 @@
+﻿@charset "UTF-8";
+
+
+button.btn.customer-details.collapsed:before {
+    content: 'Expandir detalhes';
+    display: block;
+}
+
+button.btn.customer-details:before {
+    content: 'Retrair detalhes';
+    display: block;
+}

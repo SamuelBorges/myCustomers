@@ -1,0 +1,257 @@
+﻿
+@{
+    ViewData["Title"] = "CustomerList";
+}
+
+<div class="col-md-8 col-sm-12">
+    <div class="portlet grey-cascade box">
+
+        <h1 class="bd-title" id="title">
+            Clientes:
+        </h1>
+        <br />
+
+    </div>
+</div>
+<div class="portlet-body">
+    <div class="table-responsive">
+        <table id="tabela-clientes" class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="text-primary">(id)</span> Nome
+                    </th>
+                    <th>
+                        Operação
+                    </th>
+                    <th>
+                        CNPJ
+                    </th>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th>
+                        Cobrança
+                    </th>
+                    <th>
+                        Opções
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tabela-completa">
+                @foreach (var cliente in ViewBag.Customer)
+                {
+                    <tr>
+                        <td id="teste">
+                            <span class="text-primary">(@cliente.CdCustomer)</span> @cliente.StName
+                        </td>
+                        <td>
+                            @cliente.StOperation
+                        </td>
+                        <td>
+                            @cliente.StCnpj
+                        </td>
+                        <td>
+                            @cliente.ItAmount
+                        </td>
+                        <td>
+                            @cliente.DcBilling
+                        </td>
+                        <td>
+
+                            <button type="button" class="btn btn-success botao-editar-cliente" data-toggle="modal" data-target="#customerView">
+                                <div class="actions">
+                                    <i class="fa fa-pencil"></i> Visualizar
+                                </div>
+                            </button>
+
+                            <button type="button" class="btn btn-warning botao-editar-cliente">
+                                <div class="actions">
+                                    <i class="fa fa-pencil fa-2"></i> Editar
+                                </div>
+                            </button>
+
+                            @*<button type="button" class="btn red delete botao-deletar-cliente" id="deletar@(cliente.Id)">*@
+                            <button type="button" class="btn btn-danger fa-trash botao-deletar-cliente">
+                                <div class="actions">
+                                    <i class="fa fa-pencil"></i> Excluir
+                                    <div class="actions">
+                            </button>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<center>
+    <button type="button" class="btn btn-outline-info" id="show-more">Ver Mais</button>
+</center>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="customerView" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popupTitle">NomeCliente</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Identificação: (id / nome)</li>
+                    <li class="list-group-item">Operação:</li>
+                    <li class="list-group-item">CNPJ:</li>
+                    <li class="list-group-item">Quantia:</li>
+                    <li class="list-group-item">Cobrança:</li>
+                    <li class="list-group-item">
+                        <center>
+                            <button class="btn btn-success collapsed customer-details" type="button" data-toggle="collapse" data-target="#customerDetails" aria-expanded="false" aria-controls="collapseExample" align="center"></button>
+                        </center>
+                        <div class="collapse" id="customerDetails">
+                            <div class="card card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Telefone / Celular:</li>
+                                    <li class="list-group-item">Endereço:</li>
+                                    <li class="list-group-item">Bairro:</li>
+                                    <li class="list-group-item">Cidade:</li>
+                                    <li class="list-group-item">Código postal: (id / nome)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="col-md-4 pull-right ">
+    <a href="javascript:;" class="btn btn-theme-panel" onclick="ShowForm('cadastrar')">
+        <i class="fa fa-plus"></i>
+    </a>
+    <div id="cadastrar">
+        <div class="portlet box purple" style="display:block;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>
+                    <label>Cadastrar:</label>
+                </div>
+
+            </div>
+        </div>
+        <div id="cadastrarGamb">
+            <div class="form-body">
+                <div class="form-group">
+                    <label>Nome: </label>
+                    <input type="text" class="form-control input-lg" placeholder="Nome" name="cliente.Nome" id="nome-cliente" @*class="cadastrar"*@>
+
+                    <label>Sobrenome: </label>
+                    <input type="text" class="form-control input-lg" placeholder="sobrenome" name="cliente.Sobrenome" id="sobrenome-cliente">
+
+                </div>
+                <label>Pessoa:</label>
+                @*<select class="form-control input-lg" name="cliente.TipoPessoa" id="pessoa">
+                        @foreach (LojaInformatica.DAO.Enum.TipoPessoa item in (LojaInformatica.DAO.Enum.TipoPessoa[])Enum.GetValues(typeof(LojaInformatica.DAO.Enum.TipoPessoa)))
+                        {
+
+                            int value = (int)item;
+
+                            <option value="@value" name="cliente.TipoPessoa">@Enum.GetName(item.GetType(), item)</option>
+                        }
+                    </select>*@
+
+                <label>Sexo:</label>
+                @*<select class="form-control input-lg" name="cliente.Sexo" id="sexo">
+                        @foreach (LojaInformatica.DAO.Enum.Sexo item in (LojaInformatica.DAO.Enum.Sexo[])Enum.GetValues(typeof(LojaInformatica.DAO.Enum.Sexo)))
+                        {
+
+                            int value = (int)item;
+
+                            <option value="@value" name="cliente.TipoPessoa">@Enum.GetName(item.GetType(), item)</option>
+                        }
+                    </select>*@
+
+
+                <div class="form-actions right">
+
+                    <button type="button" class="btn green" id="cadastrar-cliente">Cadastrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*onclick="atualizarInfo(usuario.Id)*@
+    @*acrescentar isso quando for para atualizar*@
+
+    @**@
+</form>
+
+
+<form class="col-md-4 pull-right" style="display:none;" id="editarShow">
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>
+                <label>Editar:</label>
+            </div>
+
+        </div>
+    </div>
+    <div id="editar">
+        <div class="form-body">
+            <div class="form-group">
+
+                <input type="text" class="form-control input-lg" placeholder="id" name="clienteedit.Id" id="id-editar" style="display:none;">
+
+                <input type="text" class="form-control input-lg" placeholder="Nome" name="clienteedit.Nome" id="nome-editar">
+
+
+                <input type="text" class="form-control input-lg" placeholder="Sobrenome" name="clienteedit.Sobrenome" id="sobrenome-editar">
+
+                <label>Pessoa: </label>
+                @*<select class="form-control input-lg" name="clienteedit.TipoPessoa" id="pessoa-editar">
+                        @foreach (LojaInformatica.DAO.Enum.TipoPessoa item in (LojaInformatica.DAO.Enum.TipoPessoa[])Enum.GetValues(typeof(LojaInformatica.DAO.Enum.TipoPessoa)))
+                        {
+
+                            int value = (int)item;
+
+                            <option value="@value" name="clienteedit.NivelAcesso">@Enum.GetName(item.GetType(), item)</option>
+                        }
+                    </select>*@
+            </div>
+            <div class="form-group">
+                <label>Sexo:</label>
+                @*<select class="form-control input-lg" name="clienteedit.Sexo" id="sexo-editar">
+                        @foreach (LojaInformatica.DAO.Enum.Sexo item in (LojaInformatica.DAO.Enum.Sexo[])Enum.GetValues(typeof(LojaInformatica.DAO.Enum.Sexo)))
+                        {
+
+                            int value = (int)item;
+
+                            <option value="@value" name="clienteedit.Sexo">@Enum.GetName(item.GetType(), item)</option>
+                        }
+                    </select>*@
+
+            </div>
+
+        </div>
+
+        <div class="form-actions right">
+
+            <button type="button" class="btn green" id="edit-client">Editar</button>
+        </div>
+    </div>
+    @*onclick="atualizarInfo(cliente.Id)*@
+    @*acrescentar isso quando for para atualizar*@
+
+</form>
+
